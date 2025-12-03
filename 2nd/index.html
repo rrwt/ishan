@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 ¡Ishan cumple 2 años! 🚜</title>
+    
+    <meta name="description" content="¡Estás invitado al segundo cumpleaños de Ishan! Fiesta temática de vehículos el 4 de enero de 2026.">
+    <meta name="keywords" content="birthday, party, Ishan, vehicles, invitation">
+    <meta name="author" content="Ishan's Family">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="🚗 ¡Ishan cumple 2 años! 🚜">
+    <meta property="og:description" content="¡Estás invitado! Fiesta temática de vehículos - Domingo 4 de enero de 2026">
+    <meta property="og:image" content="https://em-content.zobj.net/source/apple/391/racing-car_1f3ce-fe0f.png">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="🚗 ¡Ishan cumple 2 años! 🚜">
+    <meta name="twitter:description" content="¡Estás invitado! Fiesta temática de vehículos - Domingo 4 de enero de 2026">
+    
+    <meta name="theme-color" content="#FFD93D">
+    <meta name="msapplication-TileColor" content="#FFD93D">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="confetti-canvas"></canvas>
+    
+    <div class="road-container">
+        <div class="road">
+            <div class="road-line"></div>
+        </div>
+    </div>
+
+    <div class="vehicle-parade">
+        <div class="vehicle car">🚗</div>
+        <div class="vehicle truck">🚚</div>
+        <div class="vehicle ship">🚢</div>
+        <div class="vehicle tractor">🚜</div>
+        <div class="vehicle excavator">🏗️</div>
+        <div class="vehicle fire-truck">🚒</div>
+        <div class="vehicle motorcycle">🏍️</div>
+        <div class="vehicle train">🚂</div>
+        <div class="vehicle taxi">🚕</div>
+        <div class="vehicle police">🚓</div>
+    </div>
+
+    <div class="sky-parade">
+        <div class="sky-vehicle airplane">✈️</div>
+        <div class="sky-vehicle helicopter">🚁</div>
+        <div class="sky-vehicle rocket">🚀</div>
+        <div class="sky-vehicle small-plane">🛩️</div>
+        <div class="sky-vehicle ufo">🛸</div>
+    </div>
+
+    <div class="traffic-light" id="traffic-light">
+        <div class="light red active"></div>
+        <div class="light yellow"></div>
+        <div class="light green"></div>
+    </div>
+
+    <main class="invitation-container">
+        <section class="hero">
+            <div class="construction-tape top"></div>
+            <div class="age-badge">
+                <span class="age">2</span>
+                <span class="years">AÑOS</span>
+            </div>
+            <h1 class="title">
+                <span class="pre-title">¡Vroom Vroom!</span>
+                <span class="name">ISHAN</span>
+                <span class="subtitle">¡cumple DOS años!</span>
+            </h1>
+            <div class="vehicle-row">
+                <span class="bounce-vehicle">🚗</span>
+                <span class="bounce-vehicle">🚢</span>
+                <span class="bounce-vehicle">🚜</span>
+                <span class="bounce-vehicle">🚚</span>
+                <span class="bounce-vehicle">🏗️</span>
+            </div>
+            <div class="construction-tape bottom"></div>
+        </section>
+
+        <section class="details-section">
+            <div class="detail-card date-card">
+                <div class="card-icon">📅</div>
+                <h3>Cuándo</h3>
+                <p class="primary">Domingo, 4 de enero de 2026</p>
+                <p class="secondary">1:00 PM - 6:00 PM</p>
+            </div>
+            
+            <div class="detail-card location-card">
+                <div class="card-icon">📍</div>
+                <h3>Dónde</h3>
+                <p class="primary">Salón de Fiestas Microkids</p>
+                <p class="secondary">Juan Sánchez Azcona 524<br>Narvarte Poniente, Benito Juárez</p>
+                <a href="https://maps.app.goo.gl/3M3azLVywCM9xxuf8" target="_blank" class="map-link">
+                    🗺️ Cómo llegar
+                </a>
+            </div>
+        </section>
+
+        <section class="game-section">
+            <h2>🎮 ¡Toca los vehículos!</h2>
+            <div class="vehicle-grid">
+                <button class="vehicle-btn" data-vehicle="car" aria-label="Carro">
+                    <span class="emoji">🚗</span>
+                    <span class="name">Carro</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="truck" aria-label="Camión">
+                    <span class="emoji">🚚</span>
+                    <span class="name">Camión</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="ship" aria-label="Barco">
+                    <span class="emoji">🚢</span>
+                    <span class="name">Barco</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="tractor" aria-label="Tractor">
+                    <span class="emoji">🚜</span>
+                    <span class="name">Tractor</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="excavator" aria-label="Excavadora">
+                    <span class="emoji">🏗️</span>
+                    <span class="name">Excavadora</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="firetruck" aria-label="Bomberos">
+                    <span class="emoji">🚒</span>
+                    <span class="name">Bomberos</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="ambulance" aria-label="Ambulancia">
+                    <span class="emoji">🚑</span>
+                    <span class="name">Ambulancia</span>
+                </button>
+                <button class="vehicle-btn" data-vehicle="police" aria-label="Policía">
+                    <span class="emoji">🚓</span>
+                    <span class="name">Policía</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="rsvp-section">
+            <div class="rsvp-content">
+                <h2>🎉 ¡Te esperamos!</h2>
+                <p>Por favor confirma tu asistencia a la fiesta de cumpleaños de Ishan</p>
+                
+                <div class="rsvp-buttons">
+                    <a href="https://api.whatsapp.com/send?phone=5215527151292&text=Confirmo%20mi%20asistencia%20a%20la%20fiesta%F0%9F%8E%88%F0%9F%8E%82" 
+                       target="_blank" 
+                       class="rsvp-btn yes" 
+                       id="rsvp-yes">
+                        <span class="btn-emoji">🚗</span>
+                        <span class="btn-text">¡Vroom! ¡Sí voy!</span>
+                    </a>
+                </div>
+
+                <div class="rsvp-response" id="rsvp-response"></div>
+
+                <div class="contact-info">
+                    <p>¿Preguntas? Contáctanos por WhatsApp:</p>
+                    <a href="https://api.whatsapp.com/send?phone=5215527151292" target="_blank" class="contact-link">
+                        💬 Enviar mensaje
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="countdown-section">
+            <h2>🚦 ¡Cuenta regresiva para la fiesta!</h2>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="number" id="days">00</span>
+                    <span class="label">Días</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="hours">00</span>
+                    <span class="label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="minutes">00</span>
+                    <span class="label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="seconds">00</span>
+                    <span class="label">Segundos</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-vehicles">
+                <span>🚗</span><span>🚕</span><span>🚙</span><span>🚢</span><span>⛴️</span>
+                <span>🚐</span><span>🚑</span><span>🚒</span><span>🚓</span><span>🚜</span>
+            </div>
+            <div class="footer-vehicles sky">
+                <span>✈️</span><span>🚁</span><span>🛩️</span><span>🚀</span><span>🛸</span>
+                <span>🛶</span><span>⛵</span><span>🚂</span><span>🏍️</span><span>🛵</span>
+            </div>
+            <p class="small">¡Nos vemos en la carretera! 🛣️</p>
+        </footer>
+    </main>
+
+    <div id="audio-container" style="display: none;"></div>
+    <script src="script.js"></script>
+</body>
+</html>
