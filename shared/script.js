@@ -1,4 +1,6 @@
-const PARTY_DATE = new Date('2026-01-04T13:00:00');
+const PARTY_START = CONFIG.dates.partyStart;
+const PARTY_END = CONFIG.dates.partyEnd;
+const BIRTHDAY_MOMENT = CONFIG.dates.birthdayMoment;
 
 class ConfettiSystem {
     constructor(canvas) {
@@ -656,37 +658,134 @@ class SoundSystem {
 }
 
 class CountdownTimer {
-    constructor(targetDate) {
-        this.targetDate = targetDate;
-        this.elements = {
-            days: document.getElementById('days'),
-            hours: document.getElementById('hours'),
-            minutes: document.getElementById('minutes'),
-            seconds: document.getElementById('seconds')
-        };
+    constructor(startDate, endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.hasTransformed = false;
+        this.duringShown = false;
+    }
+
+    getPartyState() {
+        const now = new Date();
+        if (now < this.startDate) return 'before';
+        if (now >= this.startDate && now < this.endDate) return 'during';
+        return 'after';
     }
 
     update() {
-        const now = new Date();
-        const diff = this.targetDate - now;
-
-        if (diff <= 0) {
-            this.elements.days.textContent = '🎉';
-            this.elements.hours.textContent = '🎉';
-            this.elements.minutes.textContent = '🎉';
-            this.elements.seconds.textContent = '🎉';
-            return;
+        const state = this.getPartyState();
+        
+        if (state === 'before') {
+            this.showCountdown();
+        } else if (state === 'during') {
+            this.showPartyInProgress();
+        } else {
+            this.showThankYou();
         }
+    }
+
+    showCountdown() {
+        const days_el = document.getElementById('days');
+        const hours_el = document.getElementById('hours');
+        const minutes_el = document.getElementById('minutes');
+        const seconds_el = document.getElementById('seconds');
+        
+        if (!days_el || !hours_el || !minutes_el || !seconds_el) return;
+        
+        const now = new Date();
+        const diff = this.startDate - now;
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        this.elements.days.textContent = String(days).padStart(2, '0');
-        this.elements.hours.textContent = String(hours).padStart(2, '0');
-        this.elements.minutes.textContent = String(minutes).padStart(2, '0');
-        this.elements.seconds.textContent = String(seconds).padStart(2, '0');
+        days_el.textContent = String(days).padStart(2, '0');
+        hours_el.textContent = String(hours).padStart(2, '0');
+        minutes_el.textContent = String(minutes).padStart(2, '0');
+        seconds_el.textContent = String(seconds).padStart(2, '0');
+    }
+
+    showPartyInProgress() {
+        if (this.duringShown) return;
+        this.duringShown = true;
+        
+        const countdownSection = document.querySelector('.countdown-section');
+        if (!countdownSection) return;
+        
+        const rsvpSection = document.querySelector('.rsvp-section');
+        if (rsvpSection) rsvpSection.style.display = 'none';
+        
+        const messages = CONFIG.messages.duringParty;
+        const randomMessage = formatMessage(messages[Math.floor(Math.random() * messages.length)]);
+        
+        countdownSection.innerHTML = `
+            <h2>🚦 ¡AHORA MISMO!</h2>
+            <div class="party-live">
+                <div class="party-live-text">${randomMessage}</div>
+                <div class="party-live-sub">${CONFIG.messages.duringPartySub}</div>
+            </div>
+        `;
+        countdownSection.classList.add('party-happening');
+    }
+
+    showThankYou() {
+        if (this.hasTransformed) return;
+        this.hasTransformed = true;
+        
+        const container = document.querySelector('.invitation-container');
+        if (!container) return;
+        
+        const ty = CONFIG.messages.thankYou;
+        
+        container.innerHTML = `
+            <section class="hero thank-you-hero">
+                <div class="construction-tape top"></div>
+                <div class="age-badge">
+                    <span class="age">${CONFIG.child.age}</span>
+                    <span class="years">AÑOS</span>
+                </div>
+                <h1 class="title">
+                    <span class="pre-title">${ty.preTitle}</span>
+                    <span class="name">${CONFIG.child.name}</span>
+                    <span class="subtitle">${formatMessage(ty.subtitle)}</span>
+                </h1>
+                <div class="vehicle-row">
+                    <span class="bounce-vehicle">🎉</span>
+                    <span class="bounce-vehicle">🎂</span>
+                    <span class="bounce-vehicle">🎁</span>
+                    <span class="bounce-vehicle">🎈</span>
+                    <span class="bounce-vehicle">❤️</span>
+                </div>
+                <div class="construction-tape bottom"></div>
+            </section>
+            
+            <section class="thank-you-message">
+                <h2>${ty.heading}</h2>
+                <p>${formatMessage(ty.body)}</p>
+                <div class="thank-you-hearts">
+                    <span>❤️</span><span>🧡</span><span>💛</span><span>💚</span><span>💙</span><span>💜</span>
+                </div>
+                <p class="thank-you-small">${formatMessage(ty.signature)}</p>
+            </section>
+            
+            <footer class="footer">
+                <div class="footer-vehicles">
+                    <span>🚗</span><span>🚕</span><span>🚙</span><span>🚢</span><span>⛴️</span>
+                    <span>🚐</span><span>🚑</span><span>🚒</span><span>🚓</span><span>🚜</span>
+                </div>
+                <div class="footer-vehicles sky">
+                    <span>✈️</span><span>🚁</span><span>🛩️</span><span>🚀</span><span>🛸</span>
+                    <span>🛶</span><span>⛵</span><span>🚂</span><span>🏍️</span><span>🛵</span>
+                </div>
+                <p class="small">${ty.footerText}</p>
+            </footer>
+        `;
+        
+        if (window.confetti) {
+            window.confetti.rain(200);
+            window.confetti.update();
+        }
     }
 
     start() {
@@ -787,19 +886,25 @@ function initVehicleButtons() {
     });
 }
 
-function initRSVP() {
-    const yesBtn = document.getElementById('rsvp-yes');
-    const responseDiv = document.getElementById('rsvp-response');
-
-    if (yesBtn) {
-        yesBtn.addEventListener('click', () => {
-            window.confetti.rain(150);
-            window.confetti.update();
-            
-            setTimeout(() => {
-                responseDiv.innerHTML = `<div class="response-message">🎉 ¡Gracias! Te esperamos en la fiesta 🚗💨</div>`;
-            }, 500);
-        });
+function updateBirthdayTitle() {
+    const now = new Date();
+    const subtitle = document.querySelector('.title .subtitle');
+    const preTitle = document.querySelector('.title .pre-title');
+    
+    if (now >= BIRTHDAY_MOMENT) {
+        if (subtitle) {
+            subtitle.textContent = formatMessage(CONFIG.messages.afterBirthday.subtitle);
+        }
+        if (preTitle) {
+            preTitle.textContent = CONFIG.messages.afterBirthday.preTitle;
+        }
+    } else {
+        if (subtitle) {
+            subtitle.textContent = formatMessage(CONFIG.messages.beforeBirthday.subtitle);
+        }
+        if (preTitle) {
+            preTitle.textContent = CONFIG.messages.beforeBirthday.preTitle;
+        }
     }
 }
 
@@ -809,14 +914,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setTimeout(() => window.confetti.start(), 500);
 
-    const countdown = new CountdownTimer(PARTY_DATE);
+    updateBirthdayTitle();
+
+    const countdown = new CountdownTimer(PARTY_START, PARTY_END);
     countdown.start();
 
     const trafficLight = new TrafficLight();
     trafficLight.init();
 
     initVehicleButtons();
-    initRSVP();
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -858,3 +964,4 @@ document.addEventListener('keydown', (e) => {
         konamiIndex = 0;
     }
 });
+

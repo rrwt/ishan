@@ -597,27 +597,6 @@ body {
 .rsvp-btn.no:hover { background: #FFC107; transform: scale(1.05); }
 .btn-emoji { font-size: 1.5rem; }
 
-.rsvp-response {
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rsvp-response .response-message {
-    background: var(--white);
-    color: var(--road-dark);
-    padding: 15px 25px;
-    border-radius: 15px;
-    font-weight: 600;
-    animation: popIn 0.4s ease-out;
-}
-
-@keyframes popIn {
-    0% { transform: scale(0); opacity: 0; }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-}
 
 .contact-info { margin-top: 20px; color: rgba(255,255,255,0.8); }
 
@@ -681,3 +660,88 @@ body.party-mode { animation: partyBackground 0.5s ease-in-out infinite alternate
 
 body.party-mode .vehicle-parade .vehicle { animation-duration: 5s; }
 body.party-mode .bounce-vehicle { animation-duration: 0.3s; }
+
+.countdown-section.party-happening {
+    background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    animation: partyPulse 1s ease-in-out infinite;
+}
+
+@keyframes partyPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.party-live {
+    padding: 20px;
+}
+
+.party-live-text {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--white);
+    text-shadow: 2px 2px 0 var(--road-dark);
+    animation: bounce 0.5s ease-in-out infinite;
+}
+
+.party-live-sub {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.thank-you-hero {
+    background: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+}
+
+.thank-you-message {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 30px;
+}
+
+.thank-you-message h2 {
+    font-family: var(--font-display);
+    color: var(--road-dark);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.thank-you-message p {
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.thank-you-hearts {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.thank-you-hearts span {
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+.thank-you-hearts span:nth-child(2) { animation-delay: 0.1s; }
+.thank-you-hearts span:nth-child(3) { animation-delay: 0.2s; }
+.thank-you-hearts span:nth-child(4) { animation-delay: 0.3s; }
+.thank-you-hearts span:nth-child(5) { animation-delay: 0.4s; }
+.thank-you-hearts span:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.thank-you-small {
+    font-size: 1rem;
+    color: #999;
+    font-style: italic;
+}
+
